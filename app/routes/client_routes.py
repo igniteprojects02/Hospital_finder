@@ -351,7 +351,7 @@ from flask import request, jsonify
 import google.generativeai as genai
 
 # Configure the API key
-genai.configure(api_key="AIzaSyA5MMLd3P9jNk0WJPgFKAgUIRS_oVa0qgc")
+genai.configure(api_key="AIzaSyAqG82KPp49bu-zd2hg_Ss5Glf0wi1PCHY")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 @bp.route('/chatbot', methods=['POST'])
