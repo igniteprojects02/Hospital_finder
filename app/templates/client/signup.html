@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .header {
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        .header p {
+            margin-top: 10px;
+            font-size: 18px;
+            font-style: italic;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .title {
+            margin-bottom: 20px;
+        }
+
+        .title h1 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .title p {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin: 5px 0 0;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            text-align: left;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #error-message {
+            margin-top: 10px;
+            color: red;
+            font-size: 14px;
+        }
+    </style>
+    <script>
+        async function clientSignup(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const response = await fetch('/client/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value,
+                    email: document.getElementById('email').value,
+                    name: document.getElementById('name').value,
+                    age: document.getElementById('age').value,
+                    address: document.getElementById('address').value,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // On success, redirect to the login page
+                window.location.href = '/client/login';
+            } else {
+                // Show error message if signup fails
+                document.getElementById('error-message').innerText = result.message || 'Signup failed';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Hospital Finder</h1>
+        <p>Connecting care with convenience, one hospital at a time.</p>
+    </div>
+
+    <div class="container">
+        <div class="title">
+            <h1>Client Signup</h1>
+        </div>
+        <form onsubmit="clientSignup(event)">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div>
+                <label for="address">Address:</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <button type="submit">Signup</button>
+            </div>
+        </form>
+        <p id="error-message" style="color: red;"></p>
+    </div>
+</body>
+</html>
