@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 8001
 
 # Combine commands into a single CMD
-CMD ["sh", "-c", "python3.11 flask run 0.0.0.0:8001"]
+CMD ["python3.11", "-m", "flask", "run", "--host=0.0.0.0", "--port=8001"]

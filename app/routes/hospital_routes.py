@@ -624,3 +624,4 @@ def reply_to_review(review_id):
     db.session.commit()
 
     return jsonify({'message': 'Reply added successfully!'}), 200
+
